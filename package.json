@@ -1,0 +1,38 @@
+{
+  "name": "grunt-add-revision",
+  "description": "A grunt plugin that will add a revision query parameter to any file specified",
+  "version": "0.1.0",
+  "homepage": "https://github.com/tmlmedema/grunt-add-revision",
+  "author": {
+    "name": "Kenneth Medema",
+    "email": "chip@themainlobby.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:tmlmedema/grunt-add-revision.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tmlmedema/grunt-add-revision/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/tmlmedema/grunt-add-revision/blob/master/LICENSE-MIT"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "devDependencies": {
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-nodeunit": "^0.3.3",
+    "grunt": "~0.4.5"
+  },
+  "keywords": [
+    "gruntplugin"
+  ]
+}
