@@ -10,42 +10,46 @@
 
  module.exports = function(grunt) {
 
- 	var getRevisionString = function(){
- 		var date = new Date();
- 		var milliseconds = date.getTime();
- 		return('?r='+milliseconds.toString());
- 	};
+ 	grunt.registerMultiTask('add_revision', 'My first Grunt plugin ever.', function(){
 
- 	var updateHTML = function(filePath){
- 		var fileContents = grunt.file.read(filePath);
- 		options.revise.forEach(function(revision){
- 			var path = revision,
- 			totalChars = path.length,
- 			position = fileContents.indexOf(path) + totalChars;
- 			fileContents = [fileContents.slice(0, position), options.revisionString, fileContents.slice(position)].join('');
+ 		var getRevisionString = function(){
+ 			var date = new Date();
+ 			var milliseconds = date.getTime();
+ 			return('?r='+milliseconds.toString());
+ 		};
+
+ 		var updateHTML = function(filePath){
+ 			var fileContents = grunt.file.read(filePath);
+ 			options.revise.forEach(function(revision){
+ 				var path = revision,
+ 					totalChars = path.length,
+ 					position = fileContents.indexOf(path) + totalChars;
+ 				fileContents = [fileContents.slice(0, position), options.revisionString, fileContents.slice(position)].join('');
+ 			});
+ 			grunt.file.write(filePath, fileContents);
+ 			grunt.log.writeln('File "' + filePath + '" has been updated.');
+ 		};
+
+ 		var options = this.options({
+ 			punctuation: '.',
+ 			separator: ', ',
+ 			revise: null,
+ 			revisionString: getRevisionString(),
+ 			currentFilePath: null
  		});
- 		grunt.file.write(filePath, fileContents);
- 		grunt.log.writeln('File "' + filePath + '" has been updated.');
- 	};
 
- 	var options = this.options({
- 		punctuation: '.',
- 		separator: ', ',
- 		revise: null,
- 		revisionString: getRevisionString(),
- 		currentFilePath: null
- 	});
-
- 	this.files.forEach(function(fileList){
- 		fileList.src.forEach(function(filePath){
- 			if (!grunt.file.exists(filePath)){
- 				grunt.log.error('Source file "' + filePath + '" not found.');
- 				return false;
- 			}else{
- 				updateHTML(filePath);
- 				return true;
- 			}
+ 		this.files.forEach(function(fileList){
+ 			fileList.src.forEach(function(filePath){
+ 				if (!grunt.file.exists(filePath)){
+ 					grunt.log.error('Source file "' + filePath + '" not found.');
+ 					return false;
+ 				}else{
+ 					updateHTML(filePath);
+ 					return true;
+ 				}
+ 			});
  		});
+
  	});
 
  };
